@@ -10,9 +10,6 @@
             sortOrder="21"
             translate="label">
         <children default_policy="deny"/>
-        <parents default_policy="deny">
-            <parent name="column" policy="allow"/>
-        </parents>
         <appearances>
             <appearance name="default"
                     default="true"
@@ -33,6 +30,7 @@
                         <style name="display" source="display" converter="Magento_PageBuilder/js/converter/style/display" preview_converter="Magento_PageBuilder/js/converter/style/preview/display"/>
                         <attribute name="name" source="data-content-type"/>
                         <attribute name="appearance" source="data-appearance"/>
+                        <attribute name="background_images" source="data-background-images"/>
                         <css name="css_classes"/>
                     </element>
                     <element name="quote">
@@ -49,6 +47,15 @@
                         <html name="quote_author_desc" converter="Magento_PageBuilder/js/converter/html/tag-escaper"/>
                     </element>
                 </elements>
+                <converters>
+                    <converter name="background_images" component="Magento_PageBuilder/js/mass-converter/background-images">
+                        <config>
+                            <item name="attribute_name" value="background_images"/>
+                            <item name="desktop_image_variable" value="background_image"/>
+                            <item name="mobile_image_variable" value="mobile_image"/>
+                        </config>
+                    </converter>
+                </converters>
             </appearance>
         </appearances>
     </type>

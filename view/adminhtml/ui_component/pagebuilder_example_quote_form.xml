@@ -145,4 +145,5 @@
             </formElements>
         </field>
     </fieldset>
+    <fieldset name="background" sortOrder="30" />
 </form>
