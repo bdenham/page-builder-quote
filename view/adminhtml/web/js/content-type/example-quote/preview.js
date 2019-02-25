@@ -2,10 +2,20 @@ define([
     'Magento_PageBuilder/js/content-type/preview',
     'Magento_PageBuilder/js/content-type-toolbar',
     'Magento_PageBuilder/js/events',
-    'Magento_PageBuilder/js/uploader'
-], function (PreviewBase, Toolbar, events, Uploader) {
+    'Magento_PageBuilder/js/uploader',
+    'Magento_PageBuilder/js/wysiwyg/factory',
+    'Magento_PageBuilder/js/config'
+], function (PreviewBase, Toolbar, events, Uploader, WysiwygFactory, Config) {
     'use strict';
 
+    /**
+     * Quote content type preview class
+     *
+     * @param parent
+     * @param config
+     * @param stageId
+     * @constructor
+     */
     function Preview(parent, config, stageId) {
         PreviewBase.call(this, parent, config, stageId);
         this.toolbar = new Toolbar(this, this.getToolbarOptions());
@@ -53,6 +63,54 @@ define([
             this.contentType.dataStore,
             initialImageValue,
         );
+    };
+
+    /**
+     * Determine if the WYSIWYG editor is supported
+     *
+     * @returns {boolean}
+     */
+    Preview.prototype.isWysiwygSupported = function () {
+        return Config.getConfig("can_use_inline_editing_on_stage");
+    };
+
+    /**
+     * Init the WYSIWYG component
+     *
+     * @param {HTMLElement} element
+     */
+    Preview.prototype.initWysiwyg = function (element) {
+        var self = this;
+        var config = this.config.additional_data.wysiwygConfig.wysiwygConfigData;
+
+        this.element = element;
+        element.id = this.contentType.id + "-editor";
+
+        config.adapter.settings.fixed_toolbar_container = "#"
+            + this.contentType.id
+            + " .quote-description-text-content";
+
+        WysiwygFactory(
+            this.contentType.id,
+            element.id,
+            this.config.name,
+            config,
+            this.contentType.dataStore,
+            "quote_author_desc",
+            this.contentType.stageId,
+        ).then(function (wysiwyg) {
+            self.wysiwyg = wysiwyg;
+        });
+    };
+
+    /**
+     * Stop event to prevent execution of action when editing text area
+     *
+     * @returns {boolean}
+     */
+    Preview.prototype.stopEvent = function () {
+        event.stopPropagation();
+        return true;
     };
 
     /**

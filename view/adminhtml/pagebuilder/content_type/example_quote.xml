@@ -44,7 +44,7 @@
                     </element>
                     <element name="author_title">
                         <style name="text_align" source="text_align"/>
-                        <html name="quote_author_desc" converter="Magento_PageBuilder/js/converter/html/tag-escaper"/>
+                        <html name="quote_author_desc" preview_converter="Magento_PageBuilder/js/converter/html/directive"/>
                     </element>
                 </elements>
                 <converters>
@@ -82,6 +82,9 @@
                 <item name="validation" xsi:type="array">
                     <item name="required-entry" xsi:type="boolean">true</item>
                 </item>
+            </item>
+            <item name="wysiwygConfig" xsi:type="array">
+                <item name="wysiwygConfigData" xsi:type="object">Example\PageBuilderQuote\Model\Config\ContentType\AdditionalData\Provider\Wysiwyg\QuoteConfig</item>
             </item>
         </additional_data>
     </type>
