@@ -92,17 +92,30 @@
                 <label translate="false">Author</label>
             </settings>
         </field>
-        <field name="quote_author_desc" sortOrder="30" formElement="input">
+        <field name="quote_author_desc" sortOrder="30" formElement="wysiwyg">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">page</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        <item name="toggle_button" xsi:type="boolean">false</item>
+                    </item>
                 </item>
             </argument>
             <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <label translate="true">Author Description</label>
                 <dataScope>quote_author_desc</dataScope>
-                <dataType>text</dataType>
-                <label translate="false">Author Description</label>
             </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
         </field>
         <field name="quote_css" sortOrder="40" formElement="select">
             <argument name="data" xsi:type="array">
@@ -145,4 +158,5 @@
             </formElements>
         </field>
     </fieldset>
+    <fieldset name="background" sortOrder="30" />
 </form>
